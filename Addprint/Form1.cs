@@ -2,16 +2,18 @@ using System.Drawing.Printing;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
+using System.IO;
 
 namespace Addprint
 {
     public partial class Form1 : Form
     {
-        private string selectedFolderPath = string.Empty;
+        public string selectedFolderPath = string.Empty;
         private Bitmap bitmap; // 비트맵 이미지 객체를 저장하기 위한 변수
 
         private int photoWidth = 890; // 사진의 너비를 설정
         private int photoHeight = 500; // 사진의 높이를 설정
+        public int selectedValue;
 
         private string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); // 바탕화면 경로를 가져오는 변수
         public Form1()
@@ -33,7 +35,58 @@ namespace Addprint
             comboBox.Items.Add("이벤트 프레임1");
             comboBox.Items.Add("이벤트 프레임2");
             comboBox.Items.Add("이벤트 프레임3");
+            comboBox.SelectedIndexChanged += ComboBox_SelectedIndexChanged;
             comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+        }
+
+        private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // ComboBox에서 선택된 항목에 따라 변수에 값 대입
+            switch (comboBox.SelectedItem.ToString())
+            {
+                case "화이트 프레임":
+                    selectedValue = 1;
+                    break;
+                case "블랙 프레임":
+                    selectedValue = 2;
+                    break;
+                case "하늘 프레임":
+                    selectedValue = 3;
+                    break;
+                case "필름 프레임":
+                    selectedValue = 4;
+                    break;
+                case "엽서 프레임":
+                    selectedValue = 5;
+                    break;
+                case "카툰 프레임":
+                    selectedValue = 6;
+                    break;
+                case "gif1 프레임":
+                    selectedValue = 7;
+                    break;
+                case "gif2 프레임":
+                    selectedValue = 8;
+                    break;
+                case "gif3 프레임":
+                    selectedValue = 9;
+                    break;
+                case "이벤트 프레임1":
+                    selectedValue = 10;
+                    break;
+                case "이벤트 프레임2":
+                    selectedValue = 11;
+                    break;
+                case "이벤트 프레임3":
+                    selectedValue = 12;
+                    break;
+                default:
+                    selectedValue = 1;
+                    break;
+            }
+
+            // 값 확인을 위해 출력
+            MessageBox.Show("Selected Value: " + selectedValue);
         }
 
         private void folderButton_Click(object sender, EventArgs e)
@@ -46,14 +99,15 @@ namespace Addprint
                 // 선택한 폴더 경로를 변수에 저장
                 selectedFolderPath = folderBrowserDialog.SelectedPath;
 
-                // 선택한 폴더 경로를 텍스트 박스에 표시 (선택 사항)
+                // 선택한 폴더 경로를 텍스트 박스에 표시
                 txtFolderPath.Text = selectedFolderPath;
             }
         }
 
         private void printButton_Click(object sender, EventArgs e)
         {
-            PrintFujiPrinter(Flipbook.SelectedFrameIndex, Flipbook.NumOrders);
+            Trace.WriteLine(selectedValue);
+            Task task = PrintFujiPrinter(selectedValue);
         }
 
         // 인쇄 이벤트 핸들러
@@ -62,7 +116,7 @@ namespace Addprint
             e.Graphics.DrawImage(bitmap, e.PageBounds); // 비트맵 이미지를 페이지 경계에 맞춰 그리기
         }
 
-        private async Task PrintFujiPrinter(int frame, int ordernum)
+        private async Task PrintFujiPrinter(int frame)
         {
             // PrintDocument 객체를 생성하고, PrintPage 이벤트에 핸들러를 추가
             PrintDocument printDoc = new PrintDocument();
@@ -83,7 +137,8 @@ namespace Addprint
                 graphics.SmoothingMode = SmoothingMode.AntiAlias; // 앤티에일리어싱 모드를 설정
 
                 // 출력 폴더 경로와 이미지 파일 경로 설정
-                string folderPath = Path.Combine(desktopPath, "FlipBook", selectedFolderPath.ToString(), "outputs");
+                string folderPath = Path.GetFullPath(selectedFolderPath);
+                Trace.WriteLine(selectedFolderPath);
                 List<string> sandTimerImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "SandTimerImages"), "*.png"));
                 List<string> catImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "CatImages"), "*.png"));
                 List<string> birdImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "BirdImages"), "*.png"));
@@ -95,12 +150,12 @@ namespace Addprint
                 Image filmConceptBackground = Image.FromFile(Path.Combine(desktopPath, "FilmConceptFrameImage.png"));
                 Image postcardConceptBackground = Image.FromFile(Path.Combine(desktopPath, "PostcardConceptFrameImage.png"));
                 Image cartoonConceptBackground = Image.FromFile(Path.Combine(desktopPath, "CartoonConceptFrameImage.png"));
-                Image event1Background = Image.FromFile(Path.Combine(desktopPath, "Event1FrameImage.png"));
-                Image event2Background = Image.FromFile(Path.Combine(desktopPath, "Event2FrameImage.png"));
+                Image event1Background = Image.FromFile(Path.Combine(desktopPath, "Event1ConceptFrameImage.png"));
+                Image event2Background = Image.FromFile(Path.Combine(desktopPath, "Event2ConceptFrameImage.png"));
 
                 // 인쇄 횟수만큼 반복
-                    // 이미지 파일들을 역순으로 처리
-                    for (int j = imageFiles.Count-1; j >= 0; j--) //imageFiles.Count
+                // 이미지 파일들을 역순으로 처리
+                for (int j = imageFiles.Count-1; j >= 0; j--) //imageFiles.Count
                     {
                         string photoFilePath = imageFiles[j]; // 이미지 파일 경로 가져오기
                         Image originalPhoto = Image.FromFile(photoFilePath); // 원본 이미지 로드
@@ -172,12 +227,12 @@ namespace Addprint
                             {
                                 case 1:
                                     // 흰색배경
-                                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(46, 46, 46)), backgroundRect); // 배경을 검은색으로 설정
+                                    graphics.FillRectangle(new SolidBrush(Color.White), backgroundRect); // 배경을 검은색으로 설정
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
                                     break;
                                 case 2:
                                     // 검은색 배경
-                                    graphics.FillRectangle(new SolidBrush(Color.White), backgroundRect); // 배경을 흰색으로 설정
+                                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(46, 46, 46)), backgroundRect); // 배경을 흰색으로 설정
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
                                     break;
                                 case 3:
@@ -232,11 +287,11 @@ namespace Addprint
                                 case 12:
                                     // gif 이미지 로드
                                     Image ghostImage = Image.FromFile(ghostImageFiles[indexInImageFiles - 1]);
-                                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(242, 206, 213)), backgroundRect); // 배경을 특정 색상으로 설정
+                                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(69, 52, 124)), backgroundRect); // 배경을 특정 색상으로 설정
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
                                     graphics.DrawImage(ghostImage, gifRect); // 새 이미지를 새 GIF 사각형 영역에 그리기
                                     ghostImage.Dispose(); // 새 이미지 리소스 해제
-                                    break; ;
+                                    break;
                             }
                         }
 
