@@ -47,10 +47,10 @@ namespace Addprint
                 case "화이트 프레임":
                     selectedValue = 1;
                     break;
-                case "블랙 프레임":
+                case "하늘 프레임":
                     selectedValue = 2;
                     break;
-                case "하늘 프레임":
+                case "블랙 프레임":
                     selectedValue = 3;
                     break;
                 case "필름 프레임":
@@ -231,13 +231,14 @@ namespace Addprint
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
                                     break;
                                 case 2:
-                                    // 검은색 배경
-                                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(46, 46, 46)), backgroundRect); // 배경을 흰색으로 설정
+                                // 파랑색 배경
+                                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(228, 243, 249)), backgroundRect); // 배경을 특정 색상으로 설정
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
                                     break;
                                 case 3:
-                                    // 파랑색 배경
-                                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(228, 243, 249)), backgroundRect); // 배경을 특정 색상으로 설정
+                                    
+                                    // 검은색 배경
+                                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(46, 46, 46)), backgroundRect); // 배경을 흰색으로 설정
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
                                     break;
                                 case 4:
