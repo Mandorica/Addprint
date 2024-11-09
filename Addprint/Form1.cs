@@ -24,8 +24,8 @@ namespace Addprint
         private void Form1_Load(object sender, EventArgs e)
         {
             comboBox.Items.Add("화이트 프레임");
-            comboBox.Items.Add("블랙 프레임");
             comboBox.Items.Add("하늘 프레임");
+            comboBox.Items.Add("블랙 프레임");
             comboBox.Items.Add("필름 프레임");
             comboBox.Items.Add("엽서 프레임");
             comboBox.Items.Add("카툰 프레임");
@@ -108,6 +108,7 @@ namespace Addprint
         {
             Trace.WriteLine(selectedValue);
             Task task = PrintFujiPrinter(selectedValue);
+            MessageBox.Show("인쇄가 완료되었습니다.");
         }
 
         // 인쇄 이벤트 핸들러
