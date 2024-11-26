@@ -144,7 +144,7 @@ namespace Addprint
                 List<string> catImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "CatImages"), "*.png"));
                 List<string> birdImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "BirdImages"), "*.png"));
                 List<string> imageFiles = new List<string>(Directory.GetFiles(folderPath, "*.jpg"));
-                List<string> ghostImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "GhostImages"), "*.png"));
+                List<string> eventImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "EventImages"), "*.png"));
 
                 // 배경 이미지 파일을 로드
                 Image CoverBackground = Image.FromFile(Path.Combine(desktopPath, "CoverBackground.png"));
@@ -153,6 +153,7 @@ namespace Addprint
                 Image cartoonConceptBackground = Image.FromFile(Path.Combine(desktopPath, "CartoonConceptFrameImage.png"));
                 Image event1Background = Image.FromFile(Path.Combine(desktopPath, "Event1ConceptFrameImage.png"));
                 Image event2Background = Image.FromFile(Path.Combine(desktopPath, "Event2ConceptFrameImage.png"));
+                Image event3Background = Image.FromFile(Path.Combine(desktopPath, "Event3ConceptFrameImage.png"));
 
                 // 인쇄 횟수만큼 반복
                 // 이미지 파일들을 역순으로 처리
@@ -182,9 +183,9 @@ namespace Addprint
 
                         Rectangle innerRect = new Rectangle(
                             230,
-                            40,
+                            30,
                             photoWidth - 230,
-                            photoHeight - 80
+                            photoHeight - 60
                         );
 
 
@@ -206,10 +207,10 @@ namespace Addprint
 
 
                         Rectangle birdGifRect = new Rectangle(
-                            582,
-                            360,
-                            308,
-                            140
+                            700,
+                            310,
+                            165,
+                            165
                         );
 
                         // 이미지 파일의 이름을 가져오기
@@ -255,7 +256,7 @@ namespace Addprint
                                     graphics.DrawImage(cartoonConceptBackground, backgroundRect); // 만화 컨셉 배경을 배경 사각형 영역에 그리기
                                     break;
                                 case 7:
-                                    // 모래시계 이미지 로드
+                                    // gif 프레임 1번 로드
                                     Image sandTimerImage = Image.FromFile(sandTimerImageFiles[indexInImageFiles - 1]);
                                     graphics.FillRectangle(new SolidBrush(Color.FromArgb(159, 204, 213)), backgroundRect); // 배경을 특정 색상으로 설정
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
@@ -263,7 +264,7 @@ namespace Addprint
                                     sandTimerImage.Dispose(); // 모래시계 이미지 리소스 해제
                                     break;
                                 case 8:
-                                    // 고양이 이미지 로드
+                                    // gif 프레임 2번 로드
                                     Image catImage = Image.FromFile(catImageFiles[indexInImageFiles - 1]);
                                     graphics.FillRectangle(new SolidBrush(Color.White), backgroundRect); // 배경을 특정 색상으로 설정
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
@@ -271,7 +272,7 @@ namespace Addprint
                                     catImage.Dispose(); // 고양이 이미지 리소스 해제
                                     break;
                                 case 9:
-                                    // 새 이미지 로드
+                                    // gif 프레임 3번 로드
                                     Image birdImage = Image.FromFile(birdImageFiles[indexInImageFiles - 1]);
                                     graphics.FillRectangle(new SolidBrush(Color.FromArgb(242, 206, 213)), backgroundRect); // 배경을 특정 색상으로 설정
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
@@ -288,13 +289,13 @@ namespace Addprint
                                     break;
                                 case 12:
                                     // gif 이미지 로드
-                                    Image ghostImage = Image.FromFile(ghostImageFiles[indexInImageFiles - 1]);
-                                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(69, 52, 124)), backgroundRect); // 배경을 특정 색상으로 설정
+                                    Image eventImage = Image.FromFile(eventImageFiles[indexInImageFiles - 1]);
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(ghostImage, gifRect); // 새 이미지를 새 GIF 사각형 영역에 그리기
-                                    ghostImage.Dispose(); // 새 이미지 리소스 해제
+                                    graphics.DrawImage(event3Background, backgroundRect); // 이벤트 배경을 배경 사각형 영역에 그리기
+                                    graphics.DrawImage(eventImage, birdGifRect); // 이벤트 gif 파일을 사각형 영역에 그리기
+                                    eventImage.Dispose(); // 이벤트 gif 이미지 리소스 해제
                                     break;
-                            }
+                        }
                         }
 
                         photo.Dispose(); // 사진 비트맵 리소스 해제
@@ -305,6 +306,9 @@ namespace Addprint
                 filmConceptBackground.Dispose();
                 postcardConceptBackground.Dispose();
                 cartoonConceptBackground.Dispose();
+                event1Background.Dispose();
+                event2Background.Dispose();
+                event3Background.Dispose();
             }
 
             bitmap.Dispose(); // 비트맵 리소스 해제
