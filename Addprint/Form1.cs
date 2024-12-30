@@ -291,8 +291,8 @@ namespace Addprint
                                     // gif 이미지 로드
                                     Image eventImage = Image.FromFile(eventImageFiles[indexInImageFiles - 1]);
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(event3Background, backgroundRect); // 이벤트 배경을 배경 사각형 영역에 그리기
-                                    graphics.DrawImage(eventImage, birdGifRect); // 이벤트 gif 파일을 사각형 영역에 그리기
+                                                                      //graphics.DrawImage(event3Background, backgroundRect); // 이벤트 배경을 배경 사각형 영역에 그리기
+                                    graphics.DrawImage(eventImage, backgroundRect); // 이벤트 gif 파일을 사각형 영역에 그리기
                                     eventImage.Dispose(); // 이벤트 gif 이미지 리소스 해제
                                     break;
                         }
