@@ -157,7 +157,7 @@ namespace Addprint
 
                 // 인쇄 횟수만큼 반복
                 // 이미지 파일들을 역순으로 처리
-                for (int j = imageFiles.Count-1; j >= 0; j--) //imageFiles.Count
+                for (int j = imageFiles.Count-2; j >= 0; j--) //imageFiles.Count
                     {
                         string photoFilePath = imageFiles[j]; // 이미지 파일 경로 가져오기
                         Image originalPhoto = Image.FromFile(photoFilePath); // 원본 이미지 로드
