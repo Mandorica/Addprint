@@ -27,7 +27,7 @@ namespace Addprint
             comboBox.Items.Add("하늘 프레임");
             comboBox.Items.Add("블랙 프레임");
             comboBox.Items.Add("필름 프레임");
-            comboBox.Items.Add("엽서 프레임");
+            comboBox.Items.Add("생일 프레임");
             comboBox.Items.Add("카툰 프레임");
             comboBox.Items.Add("gif1 프레임");
             comboBox.Items.Add("gif2 프레임");
@@ -56,7 +56,7 @@ namespace Addprint
                 case "필름 프레임":
                     selectedValue = 4;
                     break;
-                case "엽서 프레임":
+                case "생일 프레임":
                     selectedValue = 5;
                     break;
                 case "카툰 프레임":
@@ -144,7 +144,7 @@ namespace Addprint
                 List<string> catImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "CatImages"), "*.png"));
                 List<string> birdImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "BirdImages"), "*.png"));
                 List<string> imageFiles = new List<string>(Directory.GetFiles(folderPath, "*.jpg"));
-                List<string> eventImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "EventImages"), "*.png"));
+                //List<string> eventImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "EventImages"), "*.png"));
 
                 // 배경 이미지 파일을 로드
                 Image CoverBackground = Image.FromFile(Path.Combine(desktopPath, "CoverBackground.png"));
@@ -202,15 +202,14 @@ namespace Addprint
                         320,
                         165,
                         165
-
                         );
 
 
                         Rectangle birdGifRect = new Rectangle(
-                            700,
-                            310,
-                            165,
-                            165
+                            675,
+                            270,
+                            200,
+                            200
                         );
 
                         // 이미지 파일의 이름을 가져오기
@@ -288,14 +287,10 @@ namespace Addprint
                                     graphics.DrawImage(event2Background, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
                                     break;
                                 case 12:
-                                    // gif 이미지 로드
-                                    Image eventImage = Image.FromFile(eventImageFiles[indexInImageFiles - 1]);
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(event3Background, backgroundRect); // 이벤트 배경을 배경 사각형 영역에 그리기
-                                    graphics.DrawImage(eventImage, gifRect); // 이벤트 gif 파일을 사각형 영역에 그리기
-                                    eventImage.Dispose(); // 이벤트 gif 이미지 리소스 해제
+                                    graphics.DrawImage(event3Background, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
                                     break;
-                            }
+                        }
                         }
 
                         photo.Dispose(); // 사진 비트맵 리소스 해제
