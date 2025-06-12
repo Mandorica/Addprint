@@ -144,7 +144,7 @@ namespace Addprint
                 List<string> catImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "CatImages"), "*.png"));
                 List<string> birdImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "BirdImages"), "*.png"));
                 List<string> imageFiles = new List<string>(Directory.GetFiles(folderPath, "*.jpg"));
-                //List<string> eventImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "EventImages"), "*.png"));
+                List<string> eventImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "EventImages"), "*.png"));
 
                 // 배경 이미지 파일을 로드
                 Image CoverBackground = Image.FromFile(Path.Combine(desktopPath, "CoverBackground.png"));
@@ -279,8 +279,10 @@ namespace Addprint
                                     birdImage.Dispose(); // 새 이미지 리소스 해제
                                     break;
                                 case 10:
+                                    Image EventImage = Image.FromFile(eventImageFiles[indexInImageFiles - 1]);
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(event1Background, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
+                                    graphics.DrawImage(EventImage, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
+                                    EventImage.Dispose(); // 이벤트 이미지 리소스 해제
                                     break;
                                 case 11:
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
