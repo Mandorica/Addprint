@@ -317,31 +317,29 @@ namespace Addprint
                                     graphics.DrawImage(event3Background, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
                                     break;
                                 case 13:
-                                Image collab1Image = Image.FromFile(collab1ImageFiles[indexInImageFiles - 1]);
-                                graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                graphics.DrawImage(collab1Background, backgroundRect); // 이벤트 배경을 배경 사각형 영역에 그리기
-                                graphics.DrawImage(collab1Image, gifRect); // 이벤트 gif 파일을 사각형 영역에 그리기
-                                collab1Image.Dispose(); // 이벤트 gif 이미지 리소스 해제
-                                break;
+                                    Image collab1Image = Image.FromFile(collab1ImageFiles[indexInImageFiles - 1]);
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(collab1Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
+                                    collab1Image.Dispose(); // 모래시계 이미지 리소스 해제
+                                    break;
                                 case 14:
-                                Image collab2Image = Image.FromFile(collab2ImageFiles[indexInImageFiles - 1]);
-                                graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                graphics.DrawImage(collab2Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
-                                collab2Image.Dispose(); // 모래시계 이미지 리소스 해제
-                                break;
+                                    Image collab2Image = Image.FromFile(collab2ImageFiles[indexInImageFiles - 1]);
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(collab2Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
+                                    collab2Image.Dispose(); // 모래시계 이미지 리소스 해제
+                                    break;
                                 case 15:
-                                Image collab3Image = Image.FromFile(collab3ImageFiles[indexInImageFiles - 1]);
-                                graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                graphics.DrawImage(collab3Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
-                                collab3Image.Dispose(); // 모래시계 이미지 리소스 해제
-                                break;
+                                    Image collab3Image = Image.FromFile(collab3ImageFiles[indexInImageFiles - 1]);
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(collab3Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
+                                    collab3Image.Dispose(); // 모래시계 이미지 리소스 해제
+                                    break;
                                 case 16:
-                                Image collab4Image = Image.FromFile(collab1ImageFiles[indexInImageFiles - 1]);
-                                graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                graphics.DrawImage(collab1Background, backgroundRect); // 이벤트 배경을 배경 사각형 영역에 그리기
-                                graphics.DrawImage(collab4Image, gifRect); // 이벤트 gif 파일을 사각형 영역에 그리기
-                                collab4Image.Dispose(); // 이벤트 gif 이미지 리소스 해제
-                                break;
+                                    Image collab4Image = Image.FromFile(collab4ImageFiles[indexInImageFiles - 1]);
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(collab4Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
+                                    collab4Image.Dispose(); // 모래시계 이미지 리소스 해제
+                                    break;
                             }
                         }
 
