@@ -39,6 +39,9 @@ namespace Addprint
             comboBox.Items.Add("콜라보 프레임2");
             comboBox.Items.Add("콜라보 프레임3");
             comboBox.Items.Add("콜라보 프레임4");
+            comboBox.Items.Add("콜라보 프레임5");
+            comboBox.Items.Add("콜라보 프레임6");
+            comboBox.Items.Add("콜라보 프레임7");
             comboBox.SelectedIndexChanged += ComboBox_SelectedIndexChanged;
             comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         }
@@ -165,6 +168,8 @@ namespace Addprint
                 List<string> collab2ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab2ImageFiles"), "*.png"));
                 List<string> collab3ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab3ImageFiles"), "*.png"));
                 List<string> collab4ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab4ImageFiles"), "*.png"));
+                List<string> collab5ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab5ImageFiles"), "*.png"));
+                List<string> collab7ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab7ImageFiles"), "*.png"));
 
                 // 배경 이미지 파일을 로드
                 Image CoverBackground = Image.FromFile(Path.Combine(desktopPath, "CoverBackground.png"));
@@ -174,10 +179,7 @@ namespace Addprint
                 Image event1Background = Image.FromFile(Path.Combine(desktopPath, "Event1ConceptFrameImage.png"));
                 Image event2Background = Image.FromFile(Path.Combine(desktopPath, "Event2ConceptFrameImage.png"));
                 Image event3Background = Image.FromFile(Path.Combine(desktopPath, "Event3ConceptFrameImage.png"));
-                Image collab1Background = Image.FromFile(Path.Combine(desktopPath, "Ext", "collab1FrameImage.png"));
-                //Image collab2Background = Image.FromFile(Path.Combine(desktopPath, "Ext", "Event2ConceptFrameImage.png"));
-                //Image collab3Background = Image.FromFile(Path.Combine(desktopPath, "Ext", "Event3ConceptFrameImage.png"));
-                Image collab4Background = Image.FromFile(Path.Combine(desktopPath, "Ext", "collab4FrameImage.png"));
+                Image collab6Image = Image.FromFile(Path.Combine(desktopPath, "Ext", "Collab6FrameImage.png"));
 
                 // 인쇄 횟수만큼 반복
                 // 이미지 파일들을 역순으로 처리
@@ -340,7 +342,23 @@ namespace Addprint
                                     graphics.DrawImage(collab4Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
                                     collab4Image.Dispose(); // 모래시계 이미지 리소스 해제
                                     break;
-                            }
+                            case 17:
+                                Image collab5Image = Image.FromFile(collab5ImageFiles[indexInImageFiles - 1]);
+                                graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                graphics.DrawImage(collab5Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
+                                collab5Image.Dispose(); // 모래시계 이미지 리소스 해제
+                                break;
+                            case 18:
+                                graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                graphics.DrawImage(collab6Image, backgroundRect); // 필름 컨셉 배경을 배경 사각형 영역에 그리기
+                                break;
+                            case 19:
+                                Image collab7Image = Image.FromFile(collab7ImageFiles[indexInImageFiles - 1]);
+                                graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                graphics.DrawImage(collab7Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
+                                collab7Image.Dispose(); // 모래시계 이미지 리소스 해제
+                                break;
+                        }
                         }
 
                         photo.Dispose(); // 사진 비트맵 리소스 해제
@@ -354,6 +372,7 @@ namespace Addprint
                 event1Background.Dispose();
                 event2Background.Dispose();
                 event3Background.Dispose();
+                collab6Image.Dispose();
             }
 
             bitmap.Dispose(); // 비트맵 리소스 해제
