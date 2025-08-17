@@ -14,6 +14,7 @@ namespace Addprint
         private int photoWidth = 890; // 사진의 너비를 설정
         private int photoHeight = 500; // 사진의 높이를 설정
         public int selectedValue;
+        public int printbooknum;
 
         private string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); // 바탕화면 경로를 가져오는 변수
         public Form1()
@@ -44,6 +45,12 @@ namespace Addprint
             comboBox.Items.Add("콜라보 프레임7");
             comboBox.SelectedIndexChanged += ComboBox_SelectedIndexChanged;
             comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            comboBox2.Items.Add("1");
+            comboBox2.Items.Add("2");
+            comboBox2.Items.Add("3");
+            comboBox2.SelectedIndexChanged += ComboBox2_SelectedIndexChanged;
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -99,6 +106,15 @@ namespace Addprint
                 case "콜라보 프레임4":
                     selectedValue = 16;
                     break;
+                case "콜라보 프레임5":
+                    selectedValue = 17;
+                    break;
+                case "콜라보 프레임6":
+                    selectedValue = 18;
+                    break;
+                case "콜라보 프레임7":
+                    selectedValue = 19;
+                    break;
                 default:
                     selectedValue = 1;
                     break;
@@ -106,6 +122,28 @@ namespace Addprint
 
             // 값 확인을 위해 출력
             MessageBox.Show("Selected Value: " + selectedValue);
+        }
+
+        private void ComboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboBox2.SelectedItem.ToString())
+            {
+                case "1":
+                    printbooknum = 1;
+                    break;
+                case "2":
+                    printbooknum = 2;
+                    break;
+                case "3":
+                    printbooknum = 3;
+                    break;
+                default:
+                    printbooknum = 1;
+                    break;
+            }
+
+            // 값 확인을 위해 출력
+            MessageBox.Show("Selected Value: " + printbooknum);
         }
 
         private void folderButton_Click(object sender, EventArgs e)
@@ -126,7 +164,7 @@ namespace Addprint
         private void printButton_Click(object sender, EventArgs e)
         {
             Trace.WriteLine(selectedValue);
-            Task task = PrintFujiPrinter(selectedValue);
+            Task task = PrintFujiPrinter(selectedValue, printbooknum);
             MessageBox.Show("인쇄가 완료되었습니다.");
         }
 
@@ -136,7 +174,7 @@ namespace Addprint
             e.Graphics.DrawImage(bitmap, e.PageBounds); // 비트맵 이미지를 페이지 경계에 맞춰 그리기
         }
 
-        private async Task PrintFujiPrinter(int frame)
+        private async Task PrintFujiPrinter(int frame, int printbooknum)
         {
             // PrintDocument 객체를 생성하고, PrintPage 이벤트에 핸들러를 추가
             PrintDocument printDoc = new PrintDocument();
@@ -183,7 +221,9 @@ namespace Addprint
 
                 // 인쇄 횟수만큼 반복
                 // 이미지 파일들을 역순으로 처리
-                for (int j = imageFiles.Count-2; j >= 0; j--) //imageFiles.Count
+                for (int i = 0; i < printbooknum; i++) //Flipbook.NumOrders
+                {
+                    for (int j = imageFiles.Count - 2; j >= 0; j--) //imageFiles.Count
                     {
                         string photoFilePath = imageFiles[j]; // 이미지 파일 경로 가져오기
                         Image originalPhoto = Image.FromFile(photoFilePath); // 원본 이미지 로드
@@ -258,12 +298,12 @@ namespace Addprint
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
                                     break;
                                 case 2:
-                                // 파랑색 배경
+                                    // 파랑색 배경
                                     graphics.FillRectangle(new SolidBrush(Color.FromArgb(228, 243, 249)), backgroundRect); // 배경을 특정 색상으로 설정
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
                                     break;
                                 case 3:
-                                    
+
                                     // 검은색 배경
                                     graphics.FillRectangle(new SolidBrush(Color.FromArgb(46, 46, 46)), backgroundRect); // 배경을 흰색으로 설정
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
@@ -342,29 +382,30 @@ namespace Addprint
                                     graphics.DrawImage(collab4Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
                                     collab4Image.Dispose(); // 모래시계 이미지 리소스 해제
                                     break;
-                            case 17:
-                                Image collab5Image = Image.FromFile(collab5ImageFiles[indexInImageFiles - 1]);
-                                graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                graphics.DrawImage(collab5Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
-                                collab5Image.Dispose(); // 모래시계 이미지 리소스 해제
-                                break;
-                            case 18:
-                                graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                graphics.DrawImage(collab6Image, backgroundRect); // 필름 컨셉 배경을 배경 사각형 영역에 그리기
-                                break;
-                            case 19:
-                                Image collab7Image = Image.FromFile(collab7ImageFiles[indexInImageFiles - 1]);
-                                graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                graphics.DrawImage(collab7Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
-                                collab7Image.Dispose(); // 모래시계 이미지 리소스 해제
-                                break;
-                        }
+                                case 17:
+                                    Image collab5Image = Image.FromFile(collab5ImageFiles[indexInImageFiles - 1]);
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(collab5Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
+                                    collab5Image.Dispose(); // 모래시계 이미지 리소스 해제
+                                    break;
+                                case 18:
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(collab6Image, backgroundRect); // 필름 컨셉 배경을 배경 사각형 영역에 그리기
+                                    break;
+                                case 19:
+                                    Image collab7Image = Image.FromFile(collab7ImageFiles[indexInImageFiles - 1]);
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(collab7Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
+                                    collab7Image.Dispose(); // 모래시계 이미지 리소스 해제
+                                    break;
+                            }
                         }
 
                         photo.Dispose(); // 사진 비트맵 리소스 해제
 
                         printDoc.Print(); // 사진 출력
                     }
+                }
                 // 배경 이미지 리소스 해제
                 filmConceptBackground.Dispose();
                 postcardConceptBackground.Dispose();
