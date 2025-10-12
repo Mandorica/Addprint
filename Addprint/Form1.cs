@@ -213,7 +213,7 @@ namespace Addprint
                 Image cartoonConceptBackground = Image.FromFile(Path.Combine(desktopPath, "CartoonConceptFrameImage.png"));
                 Image event1Background = Image.FromFile(Path.Combine(desktopPath, "Event1ConceptFrameImage.png"));
                 Image event2Background = Image.FromFile(Path.Combine(desktopPath, "Event2ConceptFrameImage.png"));
-                //Image event3Background = Image.FromFile(Path.Combine(desktopPath, "Event3ConceptFrameImage.png"));
+                Image event3Background = Image.FromFile(Path.Combine(desktopPath, "Event3ConceptFrameImage.png"));
                 Image collab1Image = Image.FromFile(Path.Combine(desktopPath, "Ext", "Collab1FrameImage.png"));
                 Image collab2Image = Image.FromFile(Path.Combine(desktopPath, "Ext", "Collab2FrameImage.png"));
                 Image collab3Image = Image.FromFile(Path.Combine(desktopPath, "Ext", "Collab3FrameImage.png"));
@@ -340,18 +340,18 @@ namespace Addprint
                                     BirdImage.Dispose(); // 이벤트 이미지 리소스 해제
                                     break;
                                 case 10:
+                                    Image EventImage = Image.FromFile(eventImageFiles[indexInImageFiles - 1]);
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(event1Background, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
+                                    graphics.DrawImage(EventImage, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
+                                    EventImage.Dispose(); // 이벤트 이미지 리소스 해제
                                     break;
                                 case 11:
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
                                     graphics.DrawImage(event2Background, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
                                     break;
                                 case 12:
-                                    Image EventImage = Image.FromFile(eventImageFiles[indexInImageFiles - 1]);
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(EventImage, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
-                                    EventImage.Dispose(); // 이벤트 이미지 리소스 해제
+                                    graphics.DrawImage(event3Background, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
                                     break;
                                 case 13:
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
@@ -401,7 +401,7 @@ namespace Addprint
                 cartoonConceptBackground.Dispose();
                 event1Background.Dispose();
                 event2Background.Dispose();
-                //event3Background.Dispose();
+                event3Background.Dispose();
                 collab1Image.Dispose();
                 collab2Image.Dispose();
                 collab3Image.Dispose();
