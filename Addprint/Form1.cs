@@ -201,10 +201,12 @@ namespace Addprint
                 //List<string> catImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "CatImages"), "*.png"));
                 List<string> birdImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "BirdImages"), "*.png"));
                 List<string> imageFiles = new List<string>(Directory.GetFiles(folderPath, "*.jpg"));
-                List<string> eventImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "EventImages"), "*.png"));
+                //List<string> eventImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "EventImages"), "*.png"));
                 List<string> collab4ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab4ImageFiles"), "*.png"));
                 List<string> collab5ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab5ImageFiles"), "*.png"));
                 List<string> collab7ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab7ImageFiles"), "*.png"));
+                List<string> event1ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Event1Images"), "*.png"));
+                List<string> event2ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Event2Images"), "*.png"));
 
                 // 배경 이미지 파일을 로드
                 Image CoverBackground = Image.FromFile(Path.Combine(desktopPath, "CoverBackground.png"));
@@ -340,18 +342,20 @@ namespace Addprint
                                     BirdImage.Dispose(); // 이벤트 이미지 리소스 해제
                                     break;
                                 case 10:
-                                    Image EventImage = Image.FromFile(eventImageFiles[indexInImageFiles - 1]);
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(EventImage, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
-                                    EventImage.Dispose(); // 이벤트 이미지 리소스 해제
+                                    graphics.DrawImage(event1Background, backgroundRect); // 만화 컨셉 배경을 배경 사각형 영역에 그리기
                                     break;
                                 case 11:
+                                    Image Event1Image = Image.FromFile(event1ImageFiles[indexInImageFiles - 1]);
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(event2Background, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
+                                    graphics.DrawImage(Event1Image, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
+                                    Event1Image.Dispose(); // 이벤트 이미지 리소스 해제
                                     break;
                                 case 12:
+                                    Image Event2Image = Image.FromFile(event2ImageFiles[indexInImageFiles - 1]);
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(event3Background, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
+                                    graphics.DrawImage(Event2Image, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
+                                    Event2Image.Dispose(); // 이벤트 이미지 리소스 해제
                                     break;
                                 case 13:
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
