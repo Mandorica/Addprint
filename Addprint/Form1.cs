@@ -24,12 +24,12 @@ namespace Addprint
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            comboBox.Items.Add("화이트 프레임");
-            comboBox.Items.Add("하늘 프레임");
-            comboBox.Items.Add("블랙 프레임");
-            comboBox.Items.Add("필름 프레임");
-            comboBox.Items.Add("생일 프레임");
-            comboBox.Items.Add("카툰 프레임");
+            comboBox.Items.Add("콜라보 프레임 1");
+            comboBox.Items.Add("콜라보 프레임 2");
+            comboBox.Items.Add("콜라보 프레임 3");
+            comboBox.Items.Add("콜라보 프레임 4");
+            comboBox.Items.Add("콜라보 프레임 5");
+            /*comboBox.Items.Add("카툰 프레임");
             comboBox.Items.Add("gif1 프레임");
             comboBox.Items.Add("gif2 프레임");
             comboBox.Items.Add("gif3 프레임");
@@ -42,7 +42,7 @@ namespace Addprint
             comboBox.Items.Add("콜라보 프레임4");
             comboBox.Items.Add("콜라보 프레임5");
             comboBox.Items.Add("콜라보 프레임6");
-            comboBox.Items.Add("콜라보 프레임7");
+            comboBox.Items.Add("콜라보 프레임7");*/
             comboBox.SelectedIndexChanged += ComboBox_SelectedIndexChanged;
             comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
@@ -73,7 +73,7 @@ namespace Addprint
                 case "생일 프레임":
                     selectedValue = 5;
                     break;
-                case "카툰 프레임":
+                /*case "카툰 프레임":
                     selectedValue = 6;
                     break;
                 case "gif1 프레임":
@@ -114,7 +114,7 @@ namespace Addprint
                     break;
                 case "콜라보 프레임7":
                     selectedValue = 19;
-                    break;
+                    break;*/
                 default:
                     selectedValue = 1;
                     break;
@@ -197,20 +197,20 @@ namespace Addprint
                 // 출력 폴더 경로와 이미지 파일 경로 설정
                 string folderPath = Path.GetFullPath(selectedFolderPath);
                 Trace.WriteLine(selectedFolderPath);
-                List<string> sandTimerImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "SandTimerImages"), "*.png"));
+                //List<string> sandTimerImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "SandTimerImages"), "*.png"));
                 //List<string> catImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "CatImages"), "*.png"));
-                List<string> birdImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "BirdImages"), "*.png"));
+                //List<string> birdImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "BirdImages"), "*.png"));
                 List<string> imageFiles = new List<string>(Directory.GetFiles(folderPath, "*.jpg"));
                 //List<string> eventImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "EventImages"), "*.png"));
-                List<string> collab4ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab4ImageFiles"), "*.png"));
-                List<string> collab5ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab5ImageFiles"), "*.png"));
-                List<string> collab7ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab7ImageFiles"), "*.png"));
-                List<string> event1ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Event1Images"), "*.png"));
-                List<string> event2ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Event2Images"), "*.png"));
+                //List<string> collab4ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab4ImageFiles"), "*.png"));
+                //List<string> collab5ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab5ImageFiles"), "*.png"));
+                //List<string> collab7ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab7ImageFiles"), "*.png"));
+                //List<string> event1ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Event1Images"), "*.png"));
+                //List<string> event2ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Event2Images"), "*.png"));
 
                 // 배경 이미지 파일을 로드
                 Image CoverBackground = Image.FromFile(Path.Combine(desktopPath, "CoverBackground.png"));
-                Image filmConceptBackground = Image.FromFile(Path.Combine(desktopPath, "FilmConceptFrameImage.png"));
+                /*Image filmConceptBackground = Image.FromFile(Path.Combine(desktopPath, "FilmConceptFrameImage.png"));
                 Image postcardConceptBackground = Image.FromFile(Path.Combine(desktopPath, "PostcardConceptFrameImage.png"));
                 Image cartoonConceptBackground = Image.FromFile(Path.Combine(desktopPath, "CartoonConceptFrameImage.png"));
                 Image event1Background = Image.FromFile(Path.Combine(desktopPath, "Event1ConceptFrameImage.png"));
@@ -220,7 +220,12 @@ namespace Addprint
                 Image collab2Image = Image.FromFile(Path.Combine(desktopPath, "Ext", "Collab2FrameImage.png"));
                 Image collab3Image = Image.FromFile(Path.Combine(desktopPath, "Ext", "Collab3FrameImage.png"));
                 Image collab6Image = Image.FromFile(Path.Combine(desktopPath, "Ext", "Collab6FrameImage.png"));
-                Image gifBackground = Image.FromFile(Path.Combine(desktopPath, "gifFrame2.png"));
+                Image gifBackground = Image.FromFile(Path.Combine(desktopPath, "gifFrame2.png"));*/
+                Image event1Background = Image.FromFile(Path.Combine(desktopPath, "CKR_Frame1.png"));
+                Image event2Background = Image.FromFile(Path.Combine(desktopPath, "CKR_Frame2.png"));
+                Image event3Background = Image.FromFile(Path.Combine(desktopPath, "CKR_Frame3.png"));
+                Image event4Background = Image.FromFile(Path.Combine(desktopPath, "CKR_Frame4.png"));
+                Image event5Background = Image.FromFile(Path.Combine(desktopPath, "CKR_Frame5.png"));
 
                 // 인쇄 횟수만큼 반복
                 // 이미지 파일들을 역순으로 처리
@@ -296,100 +301,27 @@ namespace Addprint
                             switch (frame)
                             {
                                 case 1:
-                                    // 흰색배경
-                                    graphics.FillRectangle(new SolidBrush(Color.White), backgroundRect); // 배경을 검은색으로 설정
+                                    // 검은색 배경
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(event1Background, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
                                     break;
                                 case 2:
                                     // 파랑색 배경
-                                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(228, 243, 249)), backgroundRect); // 배경을 특정 색상으로 설정
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(event2Background, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
                                     break;
                                 case 3:
-                                    // 검은색 배경
-                                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(46, 46, 46)), backgroundRect); // 배경을 흰색으로 설정
+                                    // 흰색배경
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(event3Background, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
                                     break;
                                 case 4:
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(filmConceptBackground, backgroundRect); // 필름 컨셉 배경을 배경 사각형 영역에 그리기
+                                    graphics.DrawImage(event4Background, backgroundRect); // 필름 컨셉 배경을 배경 사각형 영역에 그리기
                                     break;
                                 case 5:
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(postcardConceptBackground, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
-                                    break;
-                                case 6:
-                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(cartoonConceptBackground, backgroundRect); // 만화 컨셉 배경을 배경 사각형 영역에 그리기
-                                    break;
-                                case 7:
-                                    // 모래시계 이미지 로드
-                                    Image SandTimerImage = Image.FromFile(sandTimerImageFiles[indexInImageFiles - 1]);
-                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(SandTimerImage, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
-                                    SandTimerImage.Dispose(); // 이벤트 이미지 리소스 해제
-                                    break;
-                                case 8:
-                                    // 고양이 이미지 로드
-                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(gifBackground, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
-                                    break;
-                                case 9:
-                                    // 새 이미지 로드
-                                    Image BirdImage = Image.FromFile(birdImageFiles[indexInImageFiles - 1]);
-                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(BirdImage, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
-                                    BirdImage.Dispose(); // 이벤트 이미지 리소스 해제
-                                    break;
-                                case 10:
-                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(event1Background, backgroundRect); // 만화 컨셉 배경을 배경 사각형 영역에 그리기
-                                    break;
-                                case 11:
-                                    Image Event1Image = Image.FromFile(event1ImageFiles[indexInImageFiles - 1]);
-                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(Event1Image, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
-                                    Event1Image.Dispose(); // 이벤트 이미지 리소스 해제
-                                    break;
-                                case 12:
-                                    Image Event2Image = Image.FromFile(event2ImageFiles[indexInImageFiles - 1]);
-                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(Event2Image, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
-                                    Event2Image.Dispose(); // 이벤트 이미지 리소스 해제
-                                    break;
-                                case 13:
-                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(collab1Image, backgroundRect); // 필름 컨셉 배경을 배경 사각형 영역에 그리기
-                                    break;
-                                case 14:
-                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(collab2Image, backgroundRect); // 필름 컨셉 배경을 배경 사각형 영역에 그리기
-                                    break;
-                                case 15:
-                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(collab3Image, backgroundRect); // 필름 컨셉 배경을 배경 사각형 영역에 그리기
-                                    break;
-                                case 16:
-                                    Image collab4Image = Image.FromFile(collab4ImageFiles[indexInImageFiles - 1]);
-                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(collab4Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
-                                    collab4Image.Dispose(); // 모래시계 이미지 리소스 해제
-                                    break;
-                                case 17:
-                                    Image collab5Image = Image.FromFile(collab5ImageFiles[indexInImageFiles - 1]);
-                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(collab5Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
-                                    collab5Image.Dispose(); // 모래시계 이미지 리소스 해제
-                                    break;
-                                case 18:
-                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(collab6Image, backgroundRect); // 필름 컨셉 배경을 배경 사각형 영역에 그리기
-                                    break;
-                                case 19:
-                                    Image collab7Image = Image.FromFile(collab7ImageFiles[indexInImageFiles - 1]);
-                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(collab7Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
-                                    collab7Image.Dispose(); // 모래시계 이미지 리소스 해제
+                                    graphics.DrawImage(event5Background, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
                                     break;
                             }
                         }
@@ -400,17 +332,11 @@ namespace Addprint
                     }
                 }
                 // 배경 이미지 리소스 해제
-                filmConceptBackground.Dispose();
-                postcardConceptBackground.Dispose();
-                cartoonConceptBackground.Dispose();
                 event1Background.Dispose();
                 event2Background.Dispose();
                 event3Background.Dispose();
-                collab1Image.Dispose();
-                collab2Image.Dispose();
-                collab3Image.Dispose();
-                collab6Image.Dispose();
-                gifBackground.Dispose();
+                event4Background.Dispose();
+                event5Background.Dispose();
             }
 
             bitmap.Dispose(); // 비트맵 리소스 해제
