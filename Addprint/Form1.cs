@@ -58,19 +58,19 @@ namespace Addprint
             // ComboBox에서 선택된 항목에 따라 변수에 값 대입
             switch (comboBox.SelectedItem.ToString())
             {
-                case "화이트 프레임":
+                case "콜라보 프레임 1":
                     selectedValue = 1;
                     break;
-                case "하늘 프레임":
+                case "콜라보 프레임 2":
                     selectedValue = 2;
                     break;
-                case "블랙 프레임":
+                case "콜라보 프레임 3":
                     selectedValue = 3;
                     break;
-                case "필름 프레임":
+                case "콜라보 프레임 4":
                     selectedValue = 4;
                     break;
-                case "생일 프레임":
+                case "콜라보 프레임 5":
                     selectedValue = 5;
                     break;
                 /*case "카툰 프레임":
