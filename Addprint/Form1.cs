@@ -24,15 +24,15 @@ namespace Addprint
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            comboBox.Items.Add("화이트 프레임");
-            comboBox.Items.Add("하늘 프레임");
-            comboBox.Items.Add("블랙 프레임");
-            comboBox.Items.Add("필름 프레임");
-            comboBox.Items.Add("생일 프레임");
-            comboBox.Items.Add("카툰 프레임");
-            comboBox.Items.Add("gif1 프레임");
-            comboBox.Items.Add("gif2 프레임");
-            comboBox.Items.Add("gif3 프레임");
+            comboBox.Items.Add("베이직 프레임1");
+            comboBox.Items.Add("베이직 프레임2");
+            comboBox.Items.Add("베이직 프레임3");
+            comboBox.Items.Add("컨셉 프레임1");
+            comboBox.Items.Add("컨셉 프레임2");
+            comboBox.Items.Add("컨셉 프레임3");
+            comboBox.Items.Add("gif 프레임1");
+            comboBox.Items.Add("gif 프레임2");
+            comboBox.Items.Add("gif 프레임3");
             comboBox.Items.Add("이벤트 프레임1");
             comboBox.Items.Add("이벤트 프레임2");
             comboBox.Items.Add("이벤트 프레임3");
@@ -58,31 +58,31 @@ namespace Addprint
             // ComboBox에서 선택된 항목에 따라 변수에 값 대입
             switch (comboBox.SelectedItem.ToString())
             {
-                case "화이트 프레임":
+                case "베이직 프레임1":
                     selectedValue = 1;
                     break;
-                case "하늘 프레임":
+                case "베이직 프레임2":
                     selectedValue = 2;
                     break;
-                case "블랙 프레임":
+                case "베이직 프레임3":
                     selectedValue = 3;
                     break;
-                case "필름 프레임":
+                case "컨셉 프레임1":
                     selectedValue = 4;
                     break;
-                case "생일 프레임":
+                case "컨셉 프레임2":
                     selectedValue = 5;
                     break;
-                case "카툰 프레임":
+                case "컨셉 프레임3":
                     selectedValue = 6;
                     break;
-                case "gif1 프레임":
+                case "gif 프레임1":
                     selectedValue = 7;
                     break;
-                case "gif2 프레임":
+                case "gif 프레임2":
                     selectedValue = 8;
                     break;
-                case "gif3 프레임":
+                case "gif 프레임3":
                     selectedValue = 9;
                     break;
                 case "이벤트 프레임1":
@@ -197,30 +197,29 @@ namespace Addprint
                 // 출력 폴더 경로와 이미지 파일 경로 설정
                 string folderPath = Path.GetFullPath(selectedFolderPath);
                 Trace.WriteLine(selectedFolderPath);
-                List<string> sandTimerImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "SandTimerImages"), "*.png"));
-                //List<string> catImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "CatImages"), "*.png"));
-                List<string> birdImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "BirdImages"), "*.png"));
                 List<string> imageFiles = new List<string>(Directory.GetFiles(folderPath, "*.jpg"));
-                //List<string> eventImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "EventImages"), "*.png"));
+                List<string> basicImage1Files = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Basic1Images"), "*.png"));
+                List<string> basicImage2Files = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Basic2Images"), "*.png"));
+                List<string> basicImage3Files = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Basic3Images"), "*.png"));
+                List<string> conceptImage1Files = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Concept1Images"), "*.png"));
+                List<string> conceptImage2Files = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Concept2Images"), "*.png"));
+                List<string> conceptImage3Files = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Concept3Images"), "*.png"));
+                List<string> gifImage1Files = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Gif1Images"), "*.png"));
+                List<string> gifImage2Files = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Gif2Images"), "*.png"));
+                List<string> gifImage3Files = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Gif3Images"), "*.png"));
+                List<string> event1ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Event1Images"), "*.png"));
+                List<string> event2ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Event2Images"), "*.png"));
+                List<string> event3ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Event3Images"), "*.png"));
                 List<string> collab4ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab4ImageFiles"), "*.png"));
                 List<string> collab5ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab5ImageFiles"), "*.png"));
                 List<string> collab7ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab7ImageFiles"), "*.png"));
-                List<string> event1ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Event1Images"), "*.png"));
-                List<string> event2ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Event2Images"), "*.png"));
 
                 // 배경 이미지 파일을 로드
                 Image CoverBackground = Image.FromFile(Path.Combine(desktopPath, "CoverBackground.png"));
-                Image filmConceptBackground = Image.FromFile(Path.Combine(desktopPath, "FilmConceptFrameImage.png"));
-                Image postcardConceptBackground = Image.FromFile(Path.Combine(desktopPath, "PostcardConceptFrameImage.png"));
-                Image cartoonConceptBackground = Image.FromFile(Path.Combine(desktopPath, "CartoonConceptFrameImage.png"));
-                Image event1Background = Image.FromFile(Path.Combine(desktopPath, "Event1ConceptFrameImage.png"));
-                Image event2Background = Image.FromFile(Path.Combine(desktopPath, "Event2ConceptFrameImage.png"));
-                Image event3Background = Image.FromFile(Path.Combine(desktopPath, "Event3ConceptFrameImage.png"));
                 Image collab1Image = Image.FromFile(Path.Combine(desktopPath, "Ext", "Collab1FrameImage.png"));
                 Image collab2Image = Image.FromFile(Path.Combine(desktopPath, "Ext", "Collab2FrameImage.png"));
                 Image collab3Image = Image.FromFile(Path.Combine(desktopPath, "Ext", "Collab3FrameImage.png"));
                 Image collab6Image = Image.FromFile(Path.Combine(desktopPath, "Ext", "Collab6FrameImage.png"));
-                Image gifBackground = Image.FromFile(Path.Combine(desktopPath, "gifFrame2.png"));
 
                 // 인쇄 횟수만큼 반복
                 // 이미지 파일들을 역순으로 처리
@@ -296,66 +295,76 @@ namespace Addprint
                             switch (frame)
                             {
                                 case 1:
-                                    // 흰색배경
-                                    graphics.FillRectangle(new SolidBrush(Color.White), backgroundRect); // 배경을 검은색으로 설정
+                                    Image Basic1Image = Image.FromFile(basicImage1Files[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(Basic1Image, backgroundRect); // 프레임을 배경에 넣기
+                                    Basic1Image.Dispose(); //배경 이미지 리소스 해제
                                     break;
                                 case 2:
-                                    // 파랑색 배경
-                                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(228, 243, 249)), backgroundRect); // 배경을 특정 색상으로 설정
+                                    Image Basic2Image = Image.FromFile(basicImage1Files[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(Basic2Image, backgroundRect); // 프레임을 배경에 넣기
+                                    Basic2Image.Dispose(); //배경 이미지 리소스 해제
                                     break;
                                 case 3:
-                                    // 검은색 배경
-                                    graphics.FillRectangle(new SolidBrush(Color.FromArgb(46, 46, 46)), backgroundRect); // 배경을 흰색으로 설정
+                                    Image Basic3Image = Image.FromFile(basicImage3Files[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(Basic3Image, backgroundRect); // 프레임을 배경에 넣기
+                                    Basic3Image.Dispose(); //배경 이미지 리소스 해제
                                     break;
                                 case 4:
+                                    Image Concept1Image = Image.FromFile(conceptImage1Files[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(filmConceptBackground, backgroundRect); // 필름 컨셉 배경을 배경 사각형 영역에 그리기
+                                    graphics.DrawImage(Concept1Image, backgroundRect); // 프레임을 배경에 넣기
+                                    Concept1Image.Dispose(); //배경 이미지 리소스 해제
                                     break;
                                 case 5:
+                                    Image Concept2Image = Image.FromFile(conceptImage2Files[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(postcardConceptBackground, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
+                                    graphics.DrawImage(Concept2Image, backgroundRect); // 프레임을 배경에 넣기
+                                    Concept2Image.Dispose(); //배경 이미지 리소스 해제
                                     break;
                                 case 6:
+                                    Image Concept3Image = Image.FromFile(conceptImage3Files[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(cartoonConceptBackground, backgroundRect); // 만화 컨셉 배경을 배경 사각형 영역에 그리기
+                                    graphics.DrawImage(Concept3Image, backgroundRect); // 프레임을 배경에 넣기
+                                    Concept3Image.Dispose(); //배경 이미지 리소스 해제
                                     break;
                                 case 7:
-                                    // 모래시계 이미지 로드
-                                    Image SandTimerImage = Image.FromFile(sandTimerImageFiles[indexInImageFiles - 1]);
+                                    Image Gif1Image = Image.FromFile(gifImage1Files[indexInImageFiles - 1]);
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(SandTimerImage, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
-                                    SandTimerImage.Dispose(); // 이벤트 이미지 리소스 해제
+                                    graphics.DrawImage(Gif1Image, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
+                                    Gif1Image.Dispose(); // 이벤트 이미지 리소스 해제
                                     break;
                                 case 8:
-                                    // 고양이 이미지 로드
+                                    Image Gif2Image = Image.FromFile(gifImage2Files[indexInImageFiles - 1]);
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(gifBackground, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
+                                    graphics.DrawImage(Gif2Image, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
+                                    Gif2Image.Dispose(); // 이벤트 이미지 리소스 해제
                                     break;
                                 case 9:
-                                    // 새 이미지 로드
-                                    Image BirdImage = Image.FromFile(birdImageFiles[indexInImageFiles - 1]);
+                                    Image Gif3Image = Image.FromFile(gifImage3Files[indexInImageFiles - 1]);
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(BirdImage, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
-                                    BirdImage.Dispose(); // 이벤트 이미지 리소스 해제
+                                    graphics.DrawImage(Gif3Image, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
+                                    Gif3Image.Dispose(); // 이벤트 이미지 리소스 해제
                                     break;
                                 case 10:
+                                    Image Event1Image = Image.FromFile(event1ImageFiles[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(event1Background, backgroundRect); // 만화 컨셉 배경을 배경 사각형 영역에 그리기
+                                    graphics.DrawImage(Event1Image, backgroundRect); // 프레임을 배경에 넣기
+                                    Event1Image.Dispose(); //배경 이미지 리소스 해제
                                     break;
                                 case 11:
-                                    Image Event1Image = Image.FromFile(event1ImageFiles[indexInImageFiles - 1]);
+                                    Image Event2Image = Image.FromFile(event2ImageFiles[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(Event1Image, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
-                                    Event1Image.Dispose(); // 이벤트 이미지 리소스 해제
+                                    graphics.DrawImage(Event2Image, backgroundRect); // 프레임을 배경에 넣기
+                                    Event2Image.Dispose(); //배경 이미지 리소스 해제
                                     break;
                                 case 12:
-                                    Image Event2Image = Image.FromFile(event2ImageFiles[indexInImageFiles - 1]);
+                                    Image Event3Image = Image.FromFile(event3ImageFiles[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
-                                    graphics.DrawImage(Event2Image, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
-                                    Event2Image.Dispose(); // 이벤트 이미지 리소스 해제
+                                    graphics.DrawImage(Event3Image, backgroundRect); // 프레임을 배경에 넣기
+                                    Event3Image.Dispose(); //배경 이미지 리소스 해제
                                     break;
                                 case 13:
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
@@ -400,17 +409,10 @@ namespace Addprint
                     }
                 }
                 // 배경 이미지 리소스 해제
-                filmConceptBackground.Dispose();
-                postcardConceptBackground.Dispose();
-                cartoonConceptBackground.Dispose();
-                event1Background.Dispose();
-                event2Background.Dispose();
-                event3Background.Dispose();
                 collab1Image.Dispose();
                 collab2Image.Dispose();
                 collab3Image.Dispose();
                 collab6Image.Dispose();
-                gifBackground.Dispose();
             }
 
             bitmap.Dispose(); // 비트맵 리소스 해제
