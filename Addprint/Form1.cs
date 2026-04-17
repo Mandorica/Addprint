@@ -24,25 +24,25 @@ namespace Addprint
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            comboBox.Items.Add("베이직 프레임1");
-            comboBox.Items.Add("베이직 프레임2");
-            comboBox.Items.Add("베이직 프레임3");
-            comboBox.Items.Add("컨셉 프레임1");
-            comboBox.Items.Add("컨셉 프레임2");
-            comboBox.Items.Add("컨셉 프레임3");
-            comboBox.Items.Add("gif 프레임1");
-            comboBox.Items.Add("gif 프레임2");
-            comboBox.Items.Add("gif 프레임3");
-            comboBox.Items.Add("이벤트 프레임1");
-            comboBox.Items.Add("이벤트 프레임2");
-            comboBox.Items.Add("이벤트 프레임3");
-            comboBox.Items.Add("콜라보 프레임1");
-            comboBox.Items.Add("콜라보 프레임2");
-            comboBox.Items.Add("콜라보 프레임3");
-            comboBox.Items.Add("콜라보 프레임4");
-            comboBox.Items.Add("콜라보 프레임5");
-            comboBox.Items.Add("콜라보 프레임6");
-            comboBox.Items.Add("콜라보 프레임7");
+            comboBox.Items.Add("Basic1Images");
+            comboBox.Items.Add("Basic2Images");
+            comboBox.Items.Add("Basic3Images");
+            comboBox.Items.Add("Concept1Images");
+            comboBox.Items.Add("Concept2Images");
+            comboBox.Items.Add("Concept3Images");
+            comboBox.Items.Add("Gif1Images");
+            comboBox.Items.Add("Gif2Images");
+            comboBox.Items.Add("Gif3Images");
+            comboBox.Items.Add("Event1Images");
+            comboBox.Items.Add("Event2Images");
+            comboBox.Items.Add("Event3Images");
+            comboBox.Items.Add("Collab1Images");
+            comboBox.Items.Add("Collab2Images");
+            comboBox.Items.Add("Collab3Images");
+            comboBox.Items.Add("Collab4Images");
+            comboBox.Items.Add("Collab5Images");
+            comboBox.Items.Add("Collab6Images");
+            comboBox.Items.Add("Collab7Images");
             comboBox.SelectedIndexChanged += ComboBox_SelectedIndexChanged;
             comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
@@ -58,61 +58,61 @@ namespace Addprint
             // ComboBox에서 선택된 항목에 따라 변수에 값 대입
             switch (comboBox.SelectedItem.ToString())
             {
-                case "베이직 프레임1":
+                case "Basic1Images":
                     selectedValue = 1;
                     break;
-                case "베이직 프레임2":
+                case "Basic2Images":
                     selectedValue = 2;
                     break;
-                case "베이직 프레임3":
+                case "Basic3Images":
                     selectedValue = 3;
                     break;
-                case "컨셉 프레임1":
+                case "Concept1Images":
                     selectedValue = 4;
                     break;
-                case "컨셉 프레임2":
+                case "Concept2Images":
                     selectedValue = 5;
                     break;
-                case "컨셉 프레임3":
+                case "Concept3Images":
                     selectedValue = 6;
                     break;
-                case "gif 프레임1":
+                case "Gif1Images":
                     selectedValue = 7;
                     break;
-                case "gif 프레임2":
+                case "Gif2Images":
                     selectedValue = 8;
                     break;
-                case "gif 프레임3":
+                case "Gif3Images":
                     selectedValue = 9;
                     break;
-                case "이벤트 프레임1":
+                case "Event1Images":
                     selectedValue = 10;
                     break;
-                case "이벤트 프레임2":
+                case "Event2Images":
                     selectedValue = 11;
                     break;
-                case "이벤트 프레임3":
+                case "Event3Images":
                     selectedValue = 12;
                     break;
-                case "콜라보 프레임1":
+                case "Collab1Images":
                     selectedValue = 13;
                     break;
-                case "콜라보 프레임2":
+                case "Collab2Images":
                     selectedValue = 14;
                     break;
-                case "콜라보 프레임3":
+                case "Collab3Images":
                     selectedValue = 15;
                     break;
-                case "콜라보 프레임4":
+                case "Collab4Images":
                     selectedValue = 16;
                     break;
-                case "콜라보 프레임5":
+                case "Collab5Images":
                     selectedValue = 17;
                     break;
-                case "콜라보 프레임6":
+                case "Collab6Images":
                     selectedValue = 18;
                     break;
-                case "콜라보 프레임7":
+                case "Collab7Images":
                     selectedValue = 19;
                     break;
                 default:
