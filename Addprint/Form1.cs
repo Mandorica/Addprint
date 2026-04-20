@@ -165,7 +165,7 @@ namespace Addprint
         {
             Trace.WriteLine(selectedValue);
             Task task = PrintFujiPrinter(selectedValue, printbooknum);
-            MessageBox.Show("인쇄가 완료되었습니다.");
+            MessageBox.Show("Done printing.");
         }
 
         // 인쇄 이벤트 핸들러
