@@ -50,7 +50,7 @@
             folderButton.Name = "folderButton";
             folderButton.Size = new Size(75, 23);
             folderButton.TabIndex = 1;
-            folderButton.Text = "파일 찾기";
+            folderButton.Text = "Find File";
             folderButton.UseVisualStyleBackColor = true;
             folderButton.Click += folderButton_Click;
             // 
@@ -60,7 +60,7 @@
             printButton.Name = "printButton";
             printButton.Size = new Size(75, 23);
             printButton.TabIndex = 2;
-            printButton.Text = "프린트";
+            printButton.Text = "Print";
             printButton.UseVisualStyleBackColor = true;
             printButton.Click += printButton_Click;
             // 
