@@ -301,7 +301,7 @@ namespace Addprint
                                     Basic1Image.Dispose(); //배경 이미지 리소스 해제
                                     break;
                                 case 2:
-                                    Image Basic2Image = Image.FromFile(basicImage1Files[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
+                                    Image Basic2Image = Image.FromFile(basicImage2Files[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
                                     graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
                                     graphics.DrawImage(Basic2Image, backgroundRect); // 프레임을 배경에 넣기
                                     Basic2Image.Dispose(); //배경 이미지 리소스 해제
