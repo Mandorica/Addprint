@@ -55,7 +55,7 @@ namespace Addprint
 
             comboBox3.Items.Add("basic");
             comboBox3.Items.Add("polaroid");
-            comboBox3.SelectedIndexChanged += ComboBox2_SelectedIndexChanged;
+            comboBox3.SelectedIndexChanged += ComboBox3_SelectedIndexChanged;
             comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
