@@ -33,6 +33,7 @@
             printButton = new Button();
             txtFolderPath = new TextBox();
             comboBox2 = new ComboBox();
+            comboBox3 = new ComboBox();
             SuspendLayout();
             // 
             // comboBox
@@ -71,20 +72,30 @@
             txtFolderPath.Size = new Size(306, 23);
             txtFolderPath.TabIndex = 3;
             // 
-            // comboBox２
+            // comboBox2
             // 
             comboBox2.Font = new Font("맑은 고딕", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 129);
             comboBox2.FormattingEnabled = true;
             comboBox2.Location = new Point(41, 181);
-            comboBox2.Name = "comboBox２";
+            comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(121, 25);
             comboBox2.TabIndex = 4;
+            // 
+            // comboBox3
+            // 
+            comboBox3.Font = new Font("맑은 고딕", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 129);
+            comboBox3.FormattingEnabled = true;
+            comboBox3.Location = new Point(41, 310);
+            comboBox3.Name = "comboBox3";
+            comboBox3.Size = new Size(121, 25);
+            comboBox3.TabIndex = 5;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(comboBox3);
             Controls.Add(comboBox2);
             Controls.Add(txtFolderPath);
             Controls.Add(printButton);
@@ -104,5 +115,6 @@
         private Button printButton;
         private TextBox txtFolderPath;
         private ComboBox comboBox2;
+        private ComboBox comboBox3;
     }
 }

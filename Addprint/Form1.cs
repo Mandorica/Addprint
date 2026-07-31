@@ -15,6 +15,7 @@ namespace Addprint
         private int photoHeight = 500; // 사진의 높이를 설정
         public int selectedValue;
         public int printbooknum;
+        public int productType;
 
         private string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); // 바탕화면 경로를 가져오는 변수
         public Form1()
@@ -51,6 +52,11 @@ namespace Addprint
             comboBox2.Items.Add("3");
             comboBox2.SelectedIndexChanged += ComboBox2_SelectedIndexChanged;
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            comboBox3.Items.Add("basic");
+            comboBox3.Items.Add("polaroid");
+            comboBox3.SelectedIndexChanged += ComboBox2_SelectedIndexChanged;
+            comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -146,6 +152,23 @@ namespace Addprint
             MessageBox.Show("Selected Value: " + printbooknum);
         }
 
+        private void ComboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboBox3.SelectedItem.ToString())
+            {
+                case "basic":
+                    productType = 1;
+                    break;
+                case "polaroid":
+                    productType = 2;
+                    break;
+                default:
+                    break;
+            }
+            // 값 확인을 위해 출력
+            MessageBox.Show("Selected Value: " + comboBox3.SelectedItem.ToString());
+        }
+
         private void folderButton_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
@@ -164,7 +187,19 @@ namespace Addprint
         private void printButton_Click(object sender, EventArgs e)
         {
             Trace.WriteLine(selectedValue);
-            Task task = PrintFujiPrinter(selectedValue, printbooknum);
+            if(productType == 1)
+            {
+                Task task = PrintFujiPrinter(selectedValue, printbooknum);
+            }
+            else if(productType == 2)
+            {
+                Task task = PrintLastImage(printbooknum);
+                Task task2 = PrintFujiPrinter2(selectedValue, printbooknum);
+            }
+            else
+            {
+                MessageBox.Show("Please select a product type.");
+            }
             MessageBox.Show("Done printing.");
         }
 
@@ -417,5 +452,352 @@ namespace Addprint
 
             bitmap.Dispose(); // 비트맵 리소스 해제
         }
+        private async Task PrintFujiPrinter2(int frame, int printbooknum)
+        {
+            // PrintDocument 객체를 생성하고, PrintPage 이벤트에 핸들러를 추가
+            PrintDocument printDoc = new PrintDocument();
+            printDoc.PrintPage += PrintImage;
+
+            // 비트맵 객체를 생성하고, 해상도를 설정
+            bitmap = new Bitmap(photoWidth, photoHeight);
+            bitmap.SetResolution(960, 640);
+
+            // 그래픽 객체를 생성하여 비트맵에 그리기
+            using (Graphics graphics = Graphics.FromImage(bitmap))
+            {
+                // 그래픽 객체의 초기 설정
+                graphics.Clear(Color.White); // 배경을 흰색으로 설정
+                graphics.CompositingQuality = CompositingQuality.HighQuality; // 합성 품질을 높게 설정
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic; // 보간 품질을 높게 설정
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality; // 픽셀 오프셋 모드를 높게 설정
+                graphics.SmoothingMode = SmoothingMode.AntiAlias; // 앤티에일리어싱 모드를 설정
+
+                // 출력 폴더 경로와 이미지 파일 경로 설정
+                string folderPath = Path.GetFullPath(selectedFolderPath);
+                Trace.WriteLine(selectedFolderPath);
+                List<string> imageFiles = new List<string>(Directory.GetFiles(folderPath, "*.jpg"));
+                List<string> basicImage1Files = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Basic1Images"), "*.png"));
+                List<string> basicImage2Files = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Basic2Images"), "*.png"));
+                List<string> basicImage3Files = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Basic3Images"), "*.png"));
+                List<string> conceptImage1Files = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Concept1Images"), "*.png"));
+                List<string> conceptImage2Files = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Concept2Images"), "*.png"));
+                List<string> conceptImage3Files = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Concept3Images"), "*.png"));
+                List<string> gifImage1Files = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Gif1Images"), "*.png"));
+                List<string> gifImage2Files = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Gif2Images"), "*.png"));
+                List<string> gifImage3Files = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Gif3Images"), "*.png"));
+                List<string> event1ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Event1Images"), "*.png"));
+                List<string> event2ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Event2Images"), "*.png"));
+                List<string> event3ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Frames", "Event3Images"), "*.png"));
+                List<string> collab4ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab4ImageFiles"), "*.png"));
+                List<string> collab5ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab5ImageFiles"), "*.png"));
+                List<string> collab7ImageFiles = new List<string>(Directory.GetFiles(Path.Combine(desktopPath, "Ext", "collab7ImageFiles"), "*.png"));
+
+                // 배경 이미지 파일을 로드
+                Image CoverBackground = Image.FromFile(Path.Combine(desktopPath, "CoverBackground.png"));
+                Image collab1Image = Image.FromFile(Path.Combine(desktopPath, "Ext", "Collab1FrameImage.png"));
+                Image collab2Image = Image.FromFile(Path.Combine(desktopPath, "Ext", "Collab2FrameImage.png"));
+                Image collab3Image = Image.FromFile(Path.Combine(desktopPath, "Ext", "Collab3FrameImage.png"));
+                Image collab6Image = Image.FromFile(Path.Combine(desktopPath, "Ext", "Collab6FrameImage.png"));
+
+                // 인쇄 횟수만큼 반복
+                // 이미지 파일들을 역순으로 처리
+                for (int i = 0; i < printbooknum; i++) //Flipbook.NumOrders
+                {
+                    for (int j = imageFiles.Count - 4; j >= 0; j--) //imageFiles.Count
+                    {
+                        string photoFilePath = imageFiles[j]; // 이미지 파일 경로 가져오기
+                        Image originalPhoto = Image.FromFile(photoFilePath); // 원본 이미지 로드
+                        Bitmap photo = new Bitmap(originalPhoto); // 비트맵 이미지 생성
+
+                        int indexInImageFiles = imageFiles.IndexOf(photoFilePath);
+
+                        Rectangle rect = new Rectangle(
+                            0,
+                            0,
+                            photoWidth,
+                            photoHeight
+                        );
+
+
+                        Rectangle coverRect = new Rectangle(
+                            80,
+                            0,
+                            photoWidth - 80,
+                            photoHeight + 40
+                        );
+
+
+                        Rectangle innerRect = new Rectangle(
+                            230,
+                            30,
+                            photoWidth - 230,
+                            photoHeight - 60
+                        );
+
+
+                        Rectangle backgroundRect = new Rectangle(
+                                0,
+                                0,
+                                890,
+                                500
+                            );
+
+
+                        Rectangle gifRect = new Rectangle(
+                        700,
+                        320,
+                        165,
+                        165
+                        );
+
+
+                        Rectangle birdGifRect = new Rectangle(
+                            675,
+                            270,
+                            200,
+                            200
+                        );
+
+                        // 이미지 파일의 이름을 가져오기
+                        string fileName = Path.GetFileName(photoFilePath);
+
+                        // 이미지가 커버 이미지인 경우
+                        if (fileName == "coverImage.jpg")
+                        {
+                            graphics.DrawImage(photo, coverRect); // 커버 이미지를 지정된 사각형 영역에 그리기
+                            graphics.DrawImage(CoverBackground, backgroundRect);
+                        }
+                        else
+                        {
+                            // 프레임 선택에 따른 이미지 처리
+                            switch (frame)
+                            {
+                                case 1:
+                                    Image Basic1Image = Image.FromFile(basicImage1Files[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(Basic1Image, backgroundRect); // 프레임을 배경에 넣기
+                                    Basic1Image.Dispose(); //배경 이미지 리소스 해제
+                                    break;
+                                case 2:
+                                    Image Basic2Image = Image.FromFile(basicImage2Files[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(Basic2Image, backgroundRect); // 프레임을 배경에 넣기
+                                    Basic2Image.Dispose(); //배경 이미지 리소스 해제
+                                    break;
+                                case 3:
+                                    Image Basic3Image = Image.FromFile(basicImage3Files[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(Basic3Image, backgroundRect); // 프레임을 배경에 넣기
+                                    Basic3Image.Dispose(); //배경 이미지 리소스 해제
+                                    break;
+                                case 4:
+                                    Image Concept1Image = Image.FromFile(conceptImage1Files[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(Concept1Image, backgroundRect); // 프레임을 배경에 넣기
+                                    Concept1Image.Dispose(); //배경 이미지 리소스 해제
+                                    break;
+                                case 5:
+                                    Image Concept2Image = Image.FromFile(conceptImage2Files[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(Concept2Image, backgroundRect); // 프레임을 배경에 넣기
+                                    Concept2Image.Dispose(); //배경 이미지 리소스 해제
+                                    break;
+                                case 6:
+                                    Image Concept3Image = Image.FromFile(conceptImage3Files[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(Concept3Image, backgroundRect); // 프레임을 배경에 넣기
+                                    Concept3Image.Dispose(); //배경 이미지 리소스 해제
+                                    break;
+                                case 7:
+                                    Image Gif1Image = Image.FromFile(gifImage1Files[indexInImageFiles - 1]);
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(Gif1Image, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
+                                    Gif1Image.Dispose(); // 이벤트 이미지 리소스 해제
+                                    break;
+                                case 8:
+                                    Image Gif2Image = Image.FromFile(gifImage2Files[indexInImageFiles - 1]);
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(Gif2Image, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
+                                    Gif2Image.Dispose(); // 이벤트 이미지 리소스 해제
+                                    break;
+                                case 9:
+                                    Image Gif3Image = Image.FromFile(gifImage3Files[indexInImageFiles - 1]);
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(Gif3Image, backgroundRect); // 엽서 컨셉 배경을 배경 사각형 영역에 그리기
+                                    Gif3Image.Dispose(); // 이벤트 이미지 리소스 해제
+                                    break;
+                                case 10:
+                                    Image Event1Image = Image.FromFile(event1ImageFiles[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(Event1Image, backgroundRect); // 프레임을 배경에 넣기
+                                    Event1Image.Dispose(); //배경 이미지 리소스 해제
+                                    break;
+                                case 11:
+                                    Image Event2Image = Image.FromFile(event2ImageFiles[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(Event2Image, backgroundRect); // 프레임을 배경에 넣기
+                                    Event2Image.Dispose(); //배경 이미지 리소스 해제
+                                    break;
+                                case 12:
+                                    Image Event3Image = Image.FromFile(event3ImageFiles[indexInImageFiles - 1]); // 프레임 1~19까지 배열에 넣기
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(Event3Image, backgroundRect); // 프레임을 배경에 넣기
+                                    Event3Image.Dispose(); //배경 이미지 리소스 해제
+                                    break;
+                                case 13:
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(collab1Image, backgroundRect); // 필름 컨셉 배경을 배경 사각형 영역에 그리기
+                                    break;
+                                case 14:
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(collab2Image, backgroundRect); // 필름 컨셉 배경을 배경 사각형 영역에 그리기
+                                    break;
+                                case 15:
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(collab3Image, backgroundRect); // 필름 컨셉 배경을 배경 사각형 영역에 그리기
+                                    break;
+                                case 16:
+                                    Image collab4Image = Image.FromFile(collab4ImageFiles[indexInImageFiles - 1]);
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(collab4Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
+                                    collab4Image.Dispose(); // 모래시계 이미지 리소스 해제
+                                    break;
+                                case 17:
+                                    Image collab5Image = Image.FromFile(collab5ImageFiles[indexInImageFiles - 1]);
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(collab5Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
+                                    collab5Image.Dispose(); // 모래시계 이미지 리소스 해제
+                                    break;
+                                case 18:
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(collab6Image, backgroundRect); // 필름 컨셉 배경을 배경 사각형 영역에 그리기
+                                    break;
+                                case 19:
+                                    Image collab7Image = Image.FromFile(collab7ImageFiles[indexInImageFiles - 1]);
+                                    graphics.DrawImage(photo, innerRect); // 사진을 내부 사각형 영역에 그리기
+                                    graphics.DrawImage(collab7Image, backgroundRect); // 모래시계 이미지를 GIF 사각형 영역에 그리기
+                                    collab7Image.Dispose(); // 모래시계 이미지 리소스 해제
+                                    break;
+                            }
+                        }
+
+                        photo.Dispose(); // 사진 비트맵 리소스 해제
+
+                        printDoc.Print(); // 사진 출력
+                    }
+                }
+                // 배경 이미지 리소스 해제
+                collab1Image.Dispose();
+                collab2Image.Dispose();
+                collab3Image.Dispose();
+                collab6Image.Dispose();
+            }
+
+            bitmap.Dispose(); // 비트맵 리소스 해제
+        }
+
+        public async Task PrintLastImage(int printbooknum) // Flipbook.Id 타입에 맞춰 수정하세요 (e.g. string, Guid)
+        {
+            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string flipbookFolder = Path.GetFullPath(selectedFolderPath);
+            string imagePath = Path.Combine(flipbookFolder, "LastImage.jpg");
+
+            // 1. 파일 존재 여부 확인
+            if (!File.Exists(imagePath))
+            {
+                MessageBox.Show($"인쇄할 이미지 파일이 존재하지 않습니다.\n경로: {imagePath}",
+                                "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                // 2. PrintDocument 객체 생성
+                using (PrintDocument printDoc = new PrintDocument())
+                {
+                    // 필요 시 프린터 설정 (기본 프린터 사용)
+                    // printDoc.PrinterSettings.PrinterName = "프린터 이름";
+
+                    // 여백을 무시하고 전체 용지 영역을 쓸지 여부 (필요에 따라 설정)
+                    //printDoc.OriginAtMargins = false;
+
+                    // 3. 인쇄 페이지 이벤트 연결
+                    printDoc.PrintPage += (sender, e) =>
+                    {
+                        // 메모리 누수 방지를 위해 Image 객체 로드
+                        using (Image img = Image.FromFile(imagePath))
+                        {
+                            // 인쇄 영역 (여백 내부)
+                            Rectangle marginBounds = e.MarginBounds;
+
+                            // 용지 전체 영역을 기준으로 하려면 아래 주석을 해제하세요.
+                            // Rectangle marginBounds = e.PageBounds;
+
+                            // 이미지 원본 크기 및 비율 계산
+                            float imgWidth = img.Width;
+                            float imgHeight = img.Height;
+                            float imgRatio = imgWidth / imgHeight;
+
+                            // 인쇄 영역 크기 및 비율 계산
+                            float printWidth = marginBounds.Width;
+                            float printHeight = marginBounds.Height;
+                            float printRatio = printWidth / printHeight;
+
+                            float renderWidth, renderHeight;
+
+                            // 비율에 따른 실제 출력 크기 산출
+                            if (imgRatio > printRatio)
+                            {
+                                // 이미지가 더 가로로 긴 경우 -> 가로 폭에 맞춤
+                                renderWidth = printWidth;
+                                renderHeight = printWidth / imgRatio;
+                            }
+                            else
+                            {
+                                // 이미지가 더 세로로 긴 경우 -> 세로 높이에 맞춤
+                                renderHeight = printHeight;
+                                renderWidth = printHeight * imgRatio;
+                            }
+
+                            // 용지 중앙에 배치하기 위한 X, Y 좌표 계산
+                            float x = marginBounds.Left + (printWidth - renderWidth) / 2;
+                            float y = marginBounds.Top + (printHeight - renderHeight) / 2;
+
+                            // 고품질 렌더링 옵션 설정
+                            e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                            e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+
+                            // 이미지 그리기
+                            e.Graphics.DrawImage(img, x, y, renderWidth, renderHeight);
+                        }
+                    };
+
+                    // 4. 인쇄 시작 (바로 인쇄)
+                    for(int i = 0; i < printbooknum; i++)
+                    {
+                        printDoc.Print();
+                    }
+
+                    // 만약 인쇄 대화상자(PrintDialog)를 띄우고 싶다면 아래 주석을 사용하세요.
+                    /*
+                    using (PrintDialog printDialog = new PrintDialog())
+                    {
+                        printDialog.Document = printDoc;
+                        if (printDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            printDoc.Print();
+                        }
+                    }
+                    */
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"인쇄 중 오류가 발생했습니다: {ex.Message}",
+                                "인쇄 실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }
