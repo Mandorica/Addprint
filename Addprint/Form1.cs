@@ -698,70 +698,34 @@ namespace Addprint
 
         public async Task PrintLastImage(int printbooknum) // Flipbook.Id 타입에 맞춰 수정하세요 (e.g. string, Guid)
         {
-            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string flipbookFolder = Path.GetFullPath(selectedFolderPath);
-            string imagePath = Path.Combine(flipbookFolder, "LastImage.jpg");
+            string outputPath = Path.GetFullPath(selectedFolderPath, "LastImage.jpg");
 
-            // 1. 파일 존재 여부 확인
-            if (!File.Exists(imagePath))
+            if (!File.Exists(outputPath))
             {
-                MessageBox.Show($"인쇄할 이미지 파일이 존재하지 않습니다.\n경로: {imagePath}",
-                                "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("재인쇄할 LastImage.jpg를 찾을 수 없습니다.");
                 return;
             }
 
-            try
+            using (Image printImage = Image.FromFile(outputPath))
             {
-                // 2. PrintDocument 객체 생성
-                using (PrintDocument printDoc = new PrintDocument())
+                PrintDocument pd = new PrintDocument();
+
+                pd.PrintPage += (s, e) =>
                 {
-                    // 필요 시 프린터 설정 (기본 프린터 사용)
-                    // printDoc.PrinterSettings.PrinterName = "프린터 이름";
+                    e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
+                    e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                    e.Graphics.CompositingQuality = CompositingQuality.HighQuality;
 
-                    // 여백을 무시하고 전체 용지 영역을 쓸지 여부 (필요에 따라 설정)
-                    //printDoc.OriginAtMargins = false;
+                    e.Graphics.DrawImage(printImage, e.PageBounds);
+                };
 
-                    // 3. 인쇄 페이지 이벤트 연결
-                    printDoc.PrintPage += (sender, e) =>
-                    {
-                        // 메모리 누수 방지를 위해 Image 객체 로드
-                        using (Image img = Image.FromFile(imagePath))
-                        {
-                            // 인쇄 영역 (여백 내부)
-
-                            // 고품질 렌더링 옵션 설정
-                            e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                            e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-                            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-
-                            // 이미지 그리기
-                            e.Graphics.DrawImage(bitmap, e.PageBounds);
-                        }
-                    };
-
-                    // 4. 인쇄 시작 (바로 인쇄)
-                    for(int i = 0; i < printbooknum; i++)
-                    {
-                        printDoc.Print();
-                    }
-
-                    // 만약 인쇄 대화상자(PrintDialog)를 띄우고 싶다면 아래 주석을 사용하세요.
-                    /*
-                    using (PrintDialog printDialog = new PrintDialog())
-                    {
-                        printDialog.Document = printDoc;
-                        if (printDialog.ShowDialog() == DialogResult.OK)
-                        {
-                            printDoc.Print();
-                        }
-                    }
-                    */
+                for (int i = 0; i < printbooknum; i++)
+                {
+                    pd.Print();
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"인쇄 중 오류가 발생했습니다: {ex.Message}",
-                                "인쇄 실패", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                pd.Dispose();
             }
         }
 
