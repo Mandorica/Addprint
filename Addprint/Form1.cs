@@ -728,40 +728,6 @@ namespace Addprint
                         using (Image img = Image.FromFile(imagePath))
                         {
                             // 인쇄 영역 (여백 내부)
-                            Rectangle marginBounds = e.MarginBounds;
-
-                            // 용지 전체 영역을 기준으로 하려면 아래 주석을 해제하세요.
-                            // Rectangle marginBounds = e.PageBounds;
-
-                            // 이미지 원본 크기 및 비율 계산
-                            float imgWidth = img.Width;
-                            float imgHeight = img.Height;
-                            float imgRatio = imgWidth / imgHeight;
-
-                            // 인쇄 영역 크기 및 비율 계산
-                            float printWidth = marginBounds.Width;
-                            float printHeight = marginBounds.Height;
-                            float printRatio = printWidth / printHeight;
-
-                            float renderWidth, renderHeight;
-
-                            // 비율에 따른 실제 출력 크기 산출
-                            if (imgRatio > printRatio)
-                            {
-                                // 이미지가 더 가로로 긴 경우 -> 가로 폭에 맞춤
-                                renderWidth = printWidth;
-                                renderHeight = printWidth / imgRatio;
-                            }
-                            else
-                            {
-                                // 이미지가 더 세로로 긴 경우 -> 세로 높이에 맞춤
-                                renderHeight = printHeight;
-                                renderWidth = printHeight * imgRatio;
-                            }
-
-                            // 용지 중앙에 배치하기 위한 X, Y 좌표 계산
-                            float x = marginBounds.Left + (printWidth - renderWidth) / 2;
-                            float y = marginBounds.Top + (printHeight - renderHeight) / 2;
 
                             // 고품질 렌더링 옵션 설정
                             e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
@@ -769,7 +735,7 @@ namespace Addprint
                             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
                             // 이미지 그리기
-                            e.Graphics.DrawImage(img, x, y, renderWidth, renderHeight);
+                            e.Graphics.DrawImage(bitmap, e.PageBounds);
                         }
                     };
 
